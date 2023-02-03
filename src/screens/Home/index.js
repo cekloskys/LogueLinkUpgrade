@@ -90,7 +90,7 @@ const HomeScreen = props => {
         <Text style={styles.title3}>Find your library resources here</Text>
         <Pressable
           style={styles.searchButton}
-          onPress={() => navigation.navigate('Get started!')}>
+          onPress={() => navigation.navigate('View Links')}>
           <AntDesign name="user" size={25} color={'#f15454'} />
           <Text style={styles.searchButtonText}> Get started!</Text>
         </Pressable>

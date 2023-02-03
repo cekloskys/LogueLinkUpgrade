@@ -50,21 +50,21 @@ const HomeTabs = () => {
                 name="Links"
                 component={HomeStackNavigator}
                 options={{
-                    tabBarIcon: ({color}) => (<Entypo name="home" color={color} size={25}/>),
+                    tabBarIcon: ({color}) => (<Entypo name="link" color={color} size={25}/>),
                 }}
             />
             <Tab.Screen
                 name="Tutorials"
                 component={OrdersStackNavigator}
                 options={{
-                    tabBarIcon: ({color}) => (<Entypo name="user" color={color} size={25}/>),
+                    tabBarIcon: ({color}) => (<Entypo name="book" color={color} size={25}/>),
                 }}
             />
             <Tab.Screen
                 name="Reservations"
                 component={ReservationsStackNavigator}
                 options={{
-                    tabBarIcon: ({color}) => (<Entypo name="menu" color={color} size={25}/>),
+                    tabBarIcon: ({color}) => (<Entypo name="calendar" color={color} size={25}/>),
                 }}
             />
         </Tab.Navigator>

@@ -8,7 +8,7 @@ const HowTo = props => {
 
   const navigation = useNavigation();
   const goToPostPage = () => {
-    navigation.navigate('How to', {postUri: post.uri});
+    navigation.navigate('Tutorial Details', {postUri: post.uri});
   };
   return (
     <Pressable onPress={goToPostPage} style={styles.touchable}>
