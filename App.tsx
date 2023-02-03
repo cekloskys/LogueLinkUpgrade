@@ -11,12 +11,13 @@ import {LogBox} from 'react-native';
 import {client} from './apollo';
 import {ApolloProvider} from '@apollo/client';
 import StatusBar from 'react-native/Libraries/Components/StatusBar/StatusBar';
+import RootNavigator from './src/navigation/index';
 StatusBar.setBarStyle('dark-content', true);
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <Router />
+      <RootNavigator />
     </ApolloProvider>
   );
 };
