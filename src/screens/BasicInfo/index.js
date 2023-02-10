@@ -1,12 +1,12 @@
 
-import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, Alert} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { DataStore } from '@aws-amplify/datastore';
-import { Times } from './models';
+import { Times } from '../../models';
 
 
 const validator = require('validator');
@@ -19,13 +19,22 @@ const BasicInfoScreen = () => {
     const [studentemail, setStudentEmail] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
+    const [times, setTimes] = useState([]);
 
     const navigation = useNavigation();
 
-    const times = [
-        '8:00am - 11:00am',
-        '12:30pm - 4:00pm'
-    ];
+    // *const times = [
+    //    '8:00am - 11:00am',
+    //      '12:30pm - 4:00pm'
+    //];
+    const fetchTimes = async () => {
+        const results = await DataStore.query(Times);
+        setTimes(results);
+    };
+
+    useEffect(() => {
+        fetchTimes();
+    }, []);
 
     const dates = [
         '2/3/2023',
@@ -39,22 +48,22 @@ const BasicInfoScreen = () => {
     const onCreateInfo = () => {
 
         if (!studentname) {
-            Alert.alert('Validation Error','Please enter a student name.');
+            Alert.alert('Validation Error', 'Please enter a student name.');
             return;
         }
         if (!studentemail || !validator.isEmail(studentemail)) {
-            Alert.alert('Validation Error','Please enter a student email.');
+            Alert.alert('Validation Error', 'Please enter a student email.');
             return;
         }
         if (!date) {
-            Alert.alert('Validation Error','Please select a date');
+            Alert.alert('Validation Error', 'Please select a date');
             return;
         }
         if (!time) {
-            Alert.alert('Validation Error','Please select a start time');
+            Alert.alert('Validation Error', 'Please select a start time');
             return;
         }
-        
+
         navigation.navigate('Room Information');
 
     };
