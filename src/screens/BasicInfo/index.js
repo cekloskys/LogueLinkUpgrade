@@ -5,6 +5,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { DataStore } from '@aws-amplify/datastore';
+import { Times } from './models';
 
 
 const validator = require('validator');
@@ -49,7 +51,7 @@ const BasicInfoScreen = () => {
             return;
         }
         if (!time) {
-            Alert.alert('Validation Error','Please select a time');
+            Alert.alert('Validation Error','Please select a start time');
             return;
         }
         
@@ -102,7 +104,7 @@ const BasicInfoScreen = () => {
             <View style={styles.row}>
                 <SelectDropdown
                     data={times}
-                    defaultButtonText={'Select time'}
+                    defaultButtonText={'Select a start time'}
                     onSelect={(selectedItem, index) => {
                         setTime(selectedItem);
                     }}
