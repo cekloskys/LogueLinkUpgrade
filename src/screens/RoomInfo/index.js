@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Pressable, Alert} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
+
+const validator = require('validator');
 
 
 const RoomInfoScreen = () => {
@@ -23,9 +25,38 @@ const RoomInfoScreen = () => {
         '1 Hour',
         '2 Hours',
     ];
+
+    const onCreateRoomInfo = () => {
+
+        if (!roomname) {
+            Alert.alert('Validation Error','Please select a room name.');
+            return;
+        }
+        if (!blockselection) {
+            Alert.alert('Validation Error','Please select a time block.');
+            return;
+        }
+        if (!participants) {
+            Alert.alert('Validation Error','Please enter number of participants.');
+            return;
+        }
+        if (!Coursenumber) {
+            Alert.alert('Validation Error','Please enter a course number.');
+            return;
+        }
+        
+        if (!teachername) {
+            Alert.alert('Validation Error','Please enter a teacher name.');
+            return;
+        }
+        Alert.alert('Success', 'Reservation created.');
+        
+
+    };
+
     return (
         <ScrollView style={styles.page}>
-            <View style={styles.row}>
+            <View>
                 <SelectDropdown
                     data={rooms}
                     defaultButtonText={'Select A Room'}
@@ -45,8 +76,8 @@ const RoomInfoScreen = () => {
                     rowTextStyle={styles.dropdownRowTxtStyle}
                 />
             </View>
-            
-            <View style={styles.row}>
+
+            <View>
                 <SelectDropdown
                     data={hour_block}
                     defaultButtonText={'Select A Hour Block'}
@@ -66,7 +97,16 @@ const RoomInfoScreen = () => {
                     rowTextStyle={styles.dropdownRowTxtStyle}
                 />
             </View>
-            <View style={styles.row}>
+            <View>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Enter Number of participants'
+                    value={participants}
+                    onChangeText={setParticipants}
+                    keyboardType={'number-pad'}
+                />
+            </View>
+            <View>
                 <TextInput
                     style={styles.input}
                     placeholder='Enter a course number'
@@ -74,7 +114,7 @@ const RoomInfoScreen = () => {
                     onChangeText={setCourseNumber}
                 />
             </View>
-            <View style={styles.row}>
+            <View>
                 <TextInput
                     style={styles.input}
                     placeholder='Enter a Teachers Name'
@@ -83,7 +123,7 @@ const RoomInfoScreen = () => {
                 />
             </View>
             <View style={styles.bottom}>
-                <Pressable style={styles.button} onPress={console.warn('Reservation created')}>
+                <Pressable style={styles.button} onPress={onCreateRoomInfo}>
                     <Text style={styles.buttonText}>Submit</Text>
                 </Pressable>
             </View>

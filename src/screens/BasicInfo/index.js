@@ -1,10 +1,15 @@
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Pressable, Alert} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
+
+
+const validator = require('validator');
+
+
 
 const BasicInfoScreen = () => {
 
@@ -13,7 +18,7 @@ const BasicInfoScreen = () => {
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
 
-    const navigation = useNavigation(); 
+    const navigation = useNavigation();
 
     const times = [
         '8:00am - 11:00am',
@@ -29,6 +34,29 @@ const BasicInfoScreen = () => {
 
     ];
 
+    const onCreateInfo = () => {
+
+        if (!studentname) {
+            Alert.alert('Validation Error','Please enter a student name.');
+            return;
+        }
+        if (!studentemail || !validator.isEmail(studentemail)) {
+            Alert.alert('Validation Error','Please enter a student email.');
+            return;
+        }
+        if (!date) {
+            Alert.alert('Validation Error','Please select a date');
+            return;
+        }
+        if (!time) {
+            Alert.alert('Validation Error','Please select a time');
+            return;
+        }
+        
+        navigation.navigate('Room Information');
+
+    };
+
     return (
         <ScrollView style={styles.page}>
             <View style={styles.row}>
@@ -36,6 +64,7 @@ const BasicInfoScreen = () => {
                     style={styles.input}
                     placeholder='Enter Student Name'
                     value={studentname}
+                    keyboardType='name-phone-pad'
                     onChangeText={(text) => {
                         setStudentName(text);
                     }}
@@ -46,6 +75,7 @@ const BasicInfoScreen = () => {
                     style={styles.input}
                     placeholder='Enter Student Email'
                     value={studentemail}
+                    keyboardType='email-address'
                     onChangeText={setStudentEmail}
                 />
             </View>
@@ -89,9 +119,9 @@ const BasicInfoScreen = () => {
                     rowTextStyle={styles.dropdownRowTxtStyle}
                 />
             </View>
-            
+
             <View style={styles.bottom}>
-                <Pressable style={styles.button} onPress={navigation.navigate('Room Information')}>
+                <Pressable style={styles.button} onPress={onCreateInfo}>
                     <Text style={styles.buttonText}>Next</Text>
                 </Pressable>
             </View>

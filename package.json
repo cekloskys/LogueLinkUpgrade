@@ -35,7 +35,8 @@
     "react-native-svg": "^13.7.0",
     "react-native-tab-view": "^3.3.4",
     "react-native-vector-icons": "^9.2.0",
-    "rn-orientation-view": "^1.0.3"
+    "rn-orientation-view": "^1.0.3",
+    "validator": "^13.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

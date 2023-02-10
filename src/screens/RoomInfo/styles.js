@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'lightgrey',
     backgroundColor: 'lightgrey',
-    marginVertical: 15,
+    marginVertical: 5,
   },
   dropdownBtnTxtStyle: {
     color: '#444',
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
   },
   row: {
-    marginVertical: 5,
+    marginVertical: 0,
   },
   label: {
     fontSize: 16,
