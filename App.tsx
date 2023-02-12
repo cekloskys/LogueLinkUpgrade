@@ -6,13 +6,15 @@
  */
 import 'react-native-gesture-handler';
 import React from 'react';
-import Router from './src/navigation/Router';
 import {LogBox} from 'react-native';
 import {client} from './apollo';
 import {ApolloProvider} from '@apollo/client';
-import StatusBar from 'react-native/Libraries/Components/StatusBar/StatusBar';
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigation/index.js';
+import { Amplify } from 'aws-amplify';
+import awsconfig from './src/aws-exports';
+
+Amplify.configure({...awsconfig, Analytics: {disabled: true}});
 
 const App = () => {
   return (

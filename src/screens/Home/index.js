@@ -91,8 +91,7 @@ const HomeScreen = props => {
         <Pressable
           style={styles.searchButton}
           onPress={() => navigation.navigate('View Links')}>
-          <AntDesign name="user" size={25} color={'#f15454'} />
-          <Text style={styles.searchButtonText}> Get started!</Text>
+          <Text style={styles.searchButtonText}>View Links</Text>
         </Pressable>
       </View>
     </OrientationView>

@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   page: {
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 15,
+    marginVertical: 5,
   },
   buttonText: {
     fontSize: 16,
@@ -45,9 +45,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1.0,
     color: 'black',
     borderColor: 'black',
-  },
-  row: {
-    marginVertical: 0,
   },
   label: {
     fontSize: 16,
@@ -61,7 +58,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'lightgrey',
     borderRadius: 10,
-    fontSize: 18,
+    fontSize: 16,
   },
 });
 

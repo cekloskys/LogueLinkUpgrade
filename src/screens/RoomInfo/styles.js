@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 15,
+    marginVertical: 5,
   },
   buttonText: {
     fontSize: 16,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'lightgrey',
     borderRadius: 10,
-    fontSize: 18,
+    fontSize: 16,
   },
 });
 

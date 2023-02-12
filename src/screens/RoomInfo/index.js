@@ -4,12 +4,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
 
-const validator = require('validator');
-
-
 const RoomInfoScreen = () => {
     const [roomname, setRoomName] = useState('');
-    const [roomnumber, setRoomNumber] = useState('');
     const [participants, setParticipants] = useState('');
     const [blockselection, setBlockSelection] = useState('');
     const [Coursenumber, setCourseNumber] = useState('');
@@ -29,15 +25,15 @@ const RoomInfoScreen = () => {
     const onCreateRoomInfo = () => {
 
         if (!roomname) {
-            Alert.alert('Validation Error','Please select a room name.');
+            Alert.alert('Validation Error','Please select a room.');
             return;
         }
         if (!blockselection) {
             Alert.alert('Validation Error','Please select a time block.');
             return;
         }
-        if (!participants) {
-            Alert.alert('Validation Error','Please enter number of participants.');
+        if (!participants || parseInt(participants) > 20) {
+            Alert.alert('Validation Error','Please enter number of participants (max 20).');
             return;
         }
         if (!Coursenumber) {
@@ -49,9 +45,9 @@ const RoomInfoScreen = () => {
             Alert.alert('Validation Error','Please enter a teacher name.');
             return;
         }
+
         Alert.alert('Success', 'Reservation created.');
         
-
     };
 
     return (
@@ -59,7 +55,7 @@ const RoomInfoScreen = () => {
             <View>
                 <SelectDropdown
                     data={rooms}
-                    defaultButtonText={'Select A Room'}
+                    defaultButtonText={'Select a room'}
                     onSelect={(selectedItem, index) => {
                         setRoomName(selectedItem);
                     }}
@@ -76,11 +72,10 @@ const RoomInfoScreen = () => {
                     rowTextStyle={styles.dropdownRowTxtStyle}
                 />
             </View>
-
             <View>
                 <SelectDropdown
                     data={hour_block}
-                    defaultButtonText={'Select A Hour Block'}
+                    defaultButtonText={'Select a block'}
                     onSelect={(selectedItem, index) => {
                         setBlockSelection(selectedItem);
                     }}
@@ -100,7 +95,7 @@ const RoomInfoScreen = () => {
             <View>
                 <TextInput
                     style={styles.input}
-                    placeholder='Enter Number of participants'
+                    placeholder='Enter number of participants (max 20)'
                     value={participants}
                     onChangeText={setParticipants}
                     keyboardType={'number-pad'}
@@ -117,7 +112,7 @@ const RoomInfoScreen = () => {
             <View>
                 <TextInput
                     style={styles.input}
-                    placeholder='Enter a Teachers Name'
+                    placeholder="Enter instructor's name"
                     value={teachername}
                     onChangeText={setTeacherName}
                 />
