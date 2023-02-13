@@ -13,6 +13,9 @@ import HowToScreen from '../screens/HowTo';
 import LinksScreen from '../screens/Links';
 import BasicInfoScreen from '../screens/BasicInfo';
 import RoomInfoScreen from '../screens/RoomInfo';
+import { View, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get("window")
 
 const Stack = createStackNavigator();
 
@@ -45,29 +48,34 @@ const Tab = createMaterialBottomTabNavigator();
 const HomeTabs = () => {
 
     return (
-        <Tab.Navigator barStyle={{ backgroundColor: 'white' }}>
-            <Tab.Screen
-                name="Links"
-                component={HomeStackNavigator}
-                options={{
-                    tabBarIcon: ({color}) => (<Entypo name="link" color={color} size={25}/>),
-                }}
-            />
-            <Tab.Screen
-                name="Tutorials"
-                component={OrdersStackNavigator}
-                options={{
-                    tabBarIcon: ({color}) => (<Entypo name="book" color={color} size={25}/>),
-                }}
-            />
-            <Tab.Screen
-                name="Reservations"
-                component={ReservationsStackNavigator}
-                options={{
-                    tabBarIcon: ({color}) => (<Entypo name="calendar" color={color} size={25}/>),
-                }}
-            />
-        </Tab.Navigator>
+        <View style={{
+            width,
+            height,
+        }}>
+            <Tab.Navigator barStyle={{ backgroundColor: 'white' }}>
+                <Tab.Screen
+                    name="Links"
+                    component={HomeStackNavigator}
+                    options={{
+                        tabBarIcon: ({ color }) => (<Entypo name="link" color={color} size={25} />),
+                    }}
+                />
+                <Tab.Screen
+                    name="Tutorials"
+                    component={OrdersStackNavigator}
+                    options={{
+                        tabBarIcon: ({ color }) => (<Entypo name="book" color={color} size={25} />),
+                    }}
+                />
+                <Tab.Screen
+                    name="Reservations"
+                    component={ReservationsStackNavigator}
+                    options={{
+                        tabBarIcon: ({ color }) => (<Entypo name="calendar" color={color} size={25} />),
+                    }}
+                />
+            </Tab.Navigator>
+        </View>
     );
 };
 

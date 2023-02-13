@@ -38,7 +38,7 @@ const BasicInfoScreen = () => {
         }
         setDisplayTimes(dt);
     }, [times]);
-    
+    //console.log(displayTimes);
     const dates = [
         '2/3/2023',
         '2/4/2023',
