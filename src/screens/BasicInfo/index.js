@@ -29,8 +29,6 @@ const BasicInfoScreen = () => {
 
     const navigation = useNavigation();
 
-
-
     //Times Select
     useEffect(() => {
         DataStore.query(Times).then(setTimes);
