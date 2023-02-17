@@ -6,8 +6,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
-import { DataStore } from '@aws-amplify/datastore';
+// import { DataStore } from '@aws-amplify/datastore';
 import { Times , Dates } from '../../models';
+import { DataStore } from 'aws-amplify';
+
 
 
 const validator = require('validator');
@@ -81,7 +83,7 @@ const BasicInfoScreen = () => {
             Alert.alert('Validation Error', 'Please select a start time');
             return;
         }
-        navigation.navigate('Room Information');
+        navigation.navigate('Room Information',{studentname: studentname, studentemail: studentemail, date:date, time: time} );
 
     };
 
@@ -92,9 +94,7 @@ const BasicInfoScreen = () => {
                 placeholder='Enter your fullname'
                 value={studentname}
                 keyboardType='name-phone-pad'
-                onChangeText={(text) => {
-                    setStudentName(text);
-                }}
+                onChangeText={setStudentName}
             />
             <TextInput
                 style={styles.input}
