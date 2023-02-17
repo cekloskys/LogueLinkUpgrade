@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
+import '@azure/core-asynciterator-polyfill';
 import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
-import { DataStore } from '@aws-amplify/datastore';
-import { Rooms, Blocks } from '../../models';
+// import { DataStore } from '@aws-amplify/datastore';
+import { Rooms, Blocks, Reservations } from '../../models';
+import { useRoute } from '@react-navigation/native';
+import { DataStore } from 'aws-amplify';
 
 const RoomInfoScreen = () => {
     const [room, setRoom] = useState('');
@@ -19,6 +22,16 @@ const RoomInfoScreen = () => {
 
     const [Coursenumber, setCourseNumber] = useState('');
     const [teachername, setTeacherName] = useState('');
+    const route = useRoute();
+
+    const studentname = route.params?.studentname;
+    console.log(studentname);
+    const studentemail = route.params?.studentemail;
+    console.log(studentemail);
+    const date = route.params?.date;
+    console.log(date);
+    const time = route.params?.time;
+    console.log(time);
 
     //Room Select
     useEffect(() => {
@@ -44,6 +57,7 @@ const RoomInfoScreen = () => {
 
     useEffect(() => {
         if (!blocks) {
+
             return;
         }
         const db = [];
@@ -55,7 +69,7 @@ const RoomInfoScreen = () => {
     console.log(displayBlock);
 
 
-    const onCreateRoomInfo = () => {
+    const onCreateRoomInfo = async () => {
 
         if (!room) {
             Alert.alert('Validation Error', 'Please select a room.');
@@ -78,7 +92,18 @@ const RoomInfoScreen = () => {
             Alert.alert('Validation Error', 'Please enter a teacher name.');
             return;
         }
-
+        const reservation = await DataStore.save(new Reservations({
+            studentName: studentname,
+            studentEmail: studentemail,
+            date,
+            startTime: time,
+            room,
+            hrBlock: parseInt(block),
+            nbrParticipants: parseInt(participants),
+            course: Coursenumber,
+            teacher: teachername,
+        }));
+        console.log(reservation);
         Alert.alert('Success', 'Reservation created.');
 
     };
