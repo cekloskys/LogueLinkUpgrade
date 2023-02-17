@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '@azure/core-asynciterator-polyfill';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
+import { ScrollView } from 'react-native-gesture-handler';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
-// import { DataStore } from '@aws-amplify/datastore';
-import { Times , Dates } from '../../models';
 import { DataStore } from 'aws-amplify';
+import { Rooms, Blocks, Reservations } from '../../models';
 
 
 const validator = require('validator');
@@ -16,50 +15,54 @@ const BasicInfoScreen = () => {
 
     const [studentname, setStudentName] = useState('');
     const [studentemail, setStudentEmail] = useState('');
+    const [participants, setParticipants] = useState('');
+    const [Coursenumber, setCourseNumber] = useState('');
+    const [teachername, setTeacherName] = useState('');
 
-    const [date, setDate] = useState('');
-    const [dates, setDates] = useState([]);
-    const [displayDates, setDisplayDates] = useState([]);
+    const [room, setRoom] = useState('');
+    const [rooms, setRoomNames] = useState([]);
+    const [displayRoom, setDisplayRoom] = useState([]);
 
-    const [time, setTime] = useState('');
-    const [times, setTimes] = useState([]);
-    const [displayTimes, setDisplayTimes] = useState([]);
+
+    const [block, setBlock] = useState('');
+    const [blocks, setBlocks] = useState([]);
+    const [displayBlock, setDisplayBlock] = useState([]);
 
     const navigation = useNavigation();
 
-    //Times Select
+    //Room Select
     useEffect(() => {
-        DataStore.query(Times).then(setTimes);
+        DataStore.query(Rooms).then(setRoomNames);
     }, []);
 
     useEffect(() => {
-        if (!times) {
+        if (!rooms) {
             return;
         }
-        const dt = [];
-        for (let i = 0; i < times.length; i++) {
-            dt.push(times[i].time);
+        const dr = [];
+        for (let i = 0; i < rooms.length; i++) {
+            dr.push(rooms[i].room);
         }
-        setDisplayTimes(dt);
-    }, [times]);
-    console.log(displayTimes);
+        setDisplayRoom(dr);
+    }, [rooms]);
+    console.log(displayRoom);
 
-    // Dates select
+    //Block Select
     useEffect(() => {
-        DataStore.query(Dates).then(setDates);
+        DataStore.query(Blocks).then(setBlocks);
     }, []);
 
     useEffect(() => {
-        if (!dates) {
+        if (!blocks) {
+
             return;
         }
-        const dd = [];
-        for (let i = 0; i < dates.length; i++) {
-            dd.push(dates[i].date);
+        const db = [];
+        for (let i = 0; i < blocks.length; i++) {
+            db.push(blocks[i].hour);
         }
-        setDisplayDates(dd);
-    }, [dates]);
-    console.log(displayDates); 
+        setDisplayBlock(db);
+    }, [blocks]);
 
     const onCreateInfo = () => {
 
@@ -71,15 +74,37 @@ const BasicInfoScreen = () => {
             Alert.alert('Validation Error', 'Please enter a valid email.');
             return;
         }
-        if (!date) {
-            Alert.alert('Validation Error', 'Please select a date');
+        if (!participants || parseInt(participants) > 20) {
+            Alert.alert('Validation Error', 'Please enter number of participants (max 20).');
             return;
         }
-        if (!time) {
-            Alert.alert('Validation Error', 'Please select a start time');
+        if (!Coursenumber) {
+            Alert.alert('Validation Error', 'Please enter a course number.');
             return;
         }
-        navigation.navigate('Room Information',{studentname: studentname, studentemail: studentemail, date:date, time: time} );
+
+        if (!teachername) {
+            Alert.alert('Validation Error', 'Please enter a teacher name.');
+            return;
+        }
+        if (!room) {
+            Alert.alert('Validation Error', 'Please select a room.');
+            return;
+        }
+        if (!block) {
+            Alert.alert('Validation Error', 'Please select a time block.');
+            return;
+        }
+
+        navigation.navigate('Room Information', {
+            studentname: studentname,
+            studentemail: studentemail,
+            participants: participants,
+            Coursenumber: Coursenumber,
+            teachername: teachername,
+            room: room,
+            block: block,
+        });
 
     };
 
@@ -99,42 +124,70 @@ const BasicInfoScreen = () => {
                 keyboardType='email-address'
                 onChangeText={setStudentEmail}
             />
-            <SelectDropdown
-                data={displayDates}
-                defaultButtonText={'Select a date'}
-                onSelect={(selectedItem, index) => {
-                    setDate(selectedItem);
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                    return selectedItem;
-                }}
-                rowTextForSelection={(item, index) => {
-                    return item;
-                }}
-                buttonStyle={styles.dropdownBtnStyle}
-                buttonTextStyle={styles.dropdownBtnTxtStyle}
-                dropdownStyle={styles.dropdownDropdownStyle}
-                rowStyle={styles.dropdownRowStyle}
-                rowTextStyle={styles.dropdownRowTxtStyle}
-            />
-            <SelectDropdown
-                data={displayTimes}
-                defaultButtonText={'Select a start time'}
-                onSelect={(selectedItem, index) => {
-                    setTime(selectedItem);
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                    return selectedItem;
-                }}
-                rowTextForSelection={(item, index) => {
-                    return item;
-                }}
-                buttonStyle={styles.dropdownBtnStyle}
-                buttonTextStyle={styles.dropdownBtnTxtStyle}
-                dropdownStyle={styles.dropdownDropdownStyle}
-                rowStyle={styles.dropdownRowStyle}
-                rowTextStyle={styles.dropdownRowTxtStyle}
-            />
+            <View>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Enter number of participants (max 20)'
+                    value={participants}
+                    onChangeText={setParticipants}
+                    keyboardType={'number-pad'}
+                />
+            </View>
+            <View>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Enter a course number'
+                    value={Coursenumber}
+                    onChangeText={setCourseNumber}
+                />
+            </View>
+            <View>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter instructor's name"
+                    value={teachername}
+                    onChangeText={setTeacherName}
+                />
+            </View>
+            <View>
+                <SelectDropdown
+                    data={displayRoom}
+                    defaultButtonText={'Select a room'}
+                    onSelect={(selectedItem, index) => {
+                        setRoom(selectedItem);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                        return selectedItem;
+                    }}
+                    rowTextForSelection={(item, index) => {
+                        return item;
+                    }}
+                    buttonStyle={styles.dropdownBtnStyle}
+                    buttonTextStyle={styles.dropdownBtnTxtStyle}
+                    dropdownStyle={styles.dropdownDropdownStyle}
+                    rowStyle={styles.dropdownRowStyle}
+                    rowTextStyle={styles.dropdownRowTxtStyle}
+                />
+                <SelectDropdown
+                    data={displayBlock}
+                    defaultButtonText={'Select a block'}
+                    onSelect={(selectedItem, index) => {
+                        setBlock(selectedItem);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                        return selectedItem;
+                    }}
+                    rowTextForSelection={(item, index) => {
+                        return item;
+                    }}
+                    buttonStyle={styles.dropdownBtnStyle}
+                    buttonTextStyle={styles.dropdownBtnTxtStyle}
+                    dropdownStyle={styles.dropdownDropdownStyle}
+                    rowStyle={styles.dropdownRowStyle}
+                    rowTextStyle={styles.dropdownRowTxtStyle}
+                />
+            </View>
+
             <View style={styles.bottom}>
                 <Pressable style={styles.button} onPress={onCreateInfo}>
                     <Text style={styles.buttonText}>Next</Text>

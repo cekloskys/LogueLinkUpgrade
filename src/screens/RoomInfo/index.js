@@ -5,91 +5,80 @@ import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
 // import { DataStore } from '@aws-amplify/datastore';
-import { Rooms, Blocks, Reservations } from '../../models';
+import { Reservations, Times, Dates } from '../../models';
 import { useRoute } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
 
 const RoomInfoScreen = () => {
-    const [room, setRoom] = useState('');
-    const [rooms, setRoomNames] = useState([]);
-    const [displayRoom, setDisplayRoom] = useState([]);
+    const [date, setDate] = useState('');
+    const [dates, setDates] = useState([]);
+    const [displayDates, setDisplayDates] = useState([]);
 
-    const [participants, setParticipants] = useState('');
-
-    const [block, setBlock] = useState('');
-    const [blocks, setBlocks] = useState([]);
-    const [displayBlock, setDisplayBlock] = useState([]);
-
-    const [Coursenumber, setCourseNumber] = useState('');
-    const [teachername, setTeacherName] = useState('');
+    const [time, setTime] = useState('');
+    const [times, setTimes] = useState([]);
+    const [displayTimes, setDisplayTimes] = useState([]);
     const route = useRoute();
 
     const studentname = route.params?.studentname;
     console.log(studentname);
     const studentemail = route.params?.studentemail;
     console.log(studentemail);
-    const date = route.params?.date;
-    console.log(date);
-    const time = route.params?.time;
-    console.log(time);
+    const participants = route.params?.participants;
+    console.log(participants);
+    const Coursenumber = route.params?.Coursenumber;
+    console.log(Coursenumber);
+    const teachername = route.params?.teachername;
+    console.log(teachername);
+    const room = route.params?.room;
+    console.log(room);
+    const block = route.params?.block;
+    console.log(block);
 
-    //Room Select
+
+    //Times Select
     useEffect(() => {
-        DataStore.query(Rooms).then(setRoomNames);
+        DataStore.query(Times).then(setTimes);
     }, []);
 
     useEffect(() => {
-        if (!rooms) {
+        if (!times) {
             return;
         }
-        const dr = [];
-        for (let i = 0; i < rooms.length; i++) {
-            dr.push(rooms[i].room);
+        const dt = [];
+        for (let i = 0; i < times.length; i++) {
+            dt.push(times[i].time);
         }
-        setDisplayRoom(dr);
-    }, [rooms]);
-    console.log(displayRoom);
+        setDisplayTimes(dt);
+    }, [times]);
+    console.log(displayTimes);
 
-    //Block Select
+    // Dates select
     useEffect(() => {
-        DataStore.query(Blocks).then(setBlocks);
+        DataStore.query(Dates).then(setDates);
     }, []);
 
     useEffect(() => {
-        if (!blocks) {
-
+        if (!dates) {
             return;
         }
-        const db = [];
-        for (let i = 0; i < blocks.length; i++) {
-            db.push(blocks[i].hour);
+        const dd = [];
+        for (let i = 0; i < dates.length; i++) {
+            dd.push(dates[i].date);
         }
-        setDisplayBlock(db);
-    }, [blocks]);
-    console.log(displayBlock);
+        setDisplayDates(dd);
+    }, [dates]);
+    console.log(displayDates);
+    
 
 
     const onCreateRoomInfo = async () => {
 
-        if (!room) {
-            Alert.alert('Validation Error', 'Please select a room.');
+        if (!date) {
+            Alert.alert('Validation Error', 'Please select a date');
             return;
         }
-        if (!block) {
-            Alert.alert('Validation Error', 'Please select a time block.');
-            return;
-        }
-        if (!participants || parseInt(participants) > 20) {
-            Alert.alert('Validation Error', 'Please enter number of participants (max 20).');
-            return;
-        }
-        if (!Coursenumber) {
-            Alert.alert('Validation Error', 'Please enter a course number.');
-            return;
-        }
-
-        if (!teachername) {
-            Alert.alert('Validation Error', 'Please enter a teacher name.');
+        if (!time) {
+            Alert.alert('Validation Error', 'Please select a start time');
             return;
         }
         const reservation = await DataStore.save(new Reservations({
@@ -110,12 +99,13 @@ const RoomInfoScreen = () => {
 
     return (
         <ScrollView style={styles.page}>
+
             <View>
                 <SelectDropdown
-                    data={displayRoom}
-                    defaultButtonText={'Select a room'}
+                    data={displayDates}
+                    defaultButtonText={'Select a date'}
                     onSelect={(selectedItem, index) => {
-                        setRoom(selectedItem);
+                        setDate(selectedItem);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                         return selectedItem;
@@ -129,13 +119,11 @@ const RoomInfoScreen = () => {
                     rowStyle={styles.dropdownRowStyle}
                     rowTextStyle={styles.dropdownRowTxtStyle}
                 />
-            </View>
-            <View>
                 <SelectDropdown
-                    data={displayBlock}
-                    defaultButtonText={'Select a block'}
+                    data={displayTimes}
+                    defaultButtonText={'Select a start time'}
                     onSelect={(selectedItem, index) => {
-                        setBlock(selectedItem);
+                        setTime(selectedItem);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                         return selectedItem;
@@ -149,32 +137,9 @@ const RoomInfoScreen = () => {
                     rowStyle={styles.dropdownRowStyle}
                     rowTextStyle={styles.dropdownRowTxtStyle}
                 />
+
             </View>
-            <View>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Enter number of participants (max 20)'
-                    value={participants}
-                    onChangeText={setParticipants}
-                    keyboardType={'number-pad'}
-                />
-            </View>
-            <View>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Enter a course number'
-                    value={Coursenumber}
-                    onChangeText={setCourseNumber}
-                />
-            </View>
-            <View>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter instructor's name"
-                    value={teachername}
-                    onChangeText={setTeacherName}
-                />
-            </View>
+
             <View style={styles.bottom}>
                 <Pressable style={styles.button} onPress={onCreateRoomInfo}>
                     <Text style={styles.buttonText}>Submit</Text>
