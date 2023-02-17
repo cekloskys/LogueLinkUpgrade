@@ -7,8 +7,6 @@ import { DataStore } from 'aws-amplify';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 
-
-
 const ReservationInfoScreen = props => {
     const navigation = useNavigation();
     const [reservations, setReservations] = useState([]);

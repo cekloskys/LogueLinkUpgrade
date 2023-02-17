@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   description: {
-    fontSize: 18,
+    fontSize: 16,
     marginLeft: 10,
     flex: 1,
     flexWrap: 'wrap',

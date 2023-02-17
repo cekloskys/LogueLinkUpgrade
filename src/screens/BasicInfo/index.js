@@ -59,7 +59,7 @@ const BasicInfoScreen = () => {
         }
         setDisplayDates(dd);
     }, [dates]);
-    console.log(displayDates);
+    console.log(displayDates); 
 
     const onCreateInfo = () => {
 
