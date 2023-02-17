@@ -1,63 +1,96 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, Alert} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
+import { DataStore } from '@aws-amplify/datastore';
+import { Rooms, Blocks } from '../../models';
 
 const RoomInfoScreen = () => {
-    const [roomname, setRoomName] = useState('');
+    const [room, setRoom] = useState('');
+    const [rooms, setRoomNames] = useState([]);
+    const [displayRoom, setDisplayRoom] = useState([]);
+
     const [participants, setParticipants] = useState('');
-    const [blockselection, setBlockSelection] = useState('');
+
+    const [block, setBlock] = useState('');
+    const [blocks, setBlocks] = useState([]);
+    const [displayBlock, setDisplayBlock] = useState([]);
+
     const [Coursenumber, setCourseNumber] = useState('');
     const [teachername, setTeacherName] = useState('');
 
-    const rooms = [
-        'LL 301',
-        'LL 201',
-        'LL 101',
-    ];
+    //Room Select
+    useEffect(() => {
+        DataStore.query(Rooms).then(setRoomNames);
+    }, []);
 
-    const hour_block = [
-        '1 Hour',
-        '2 Hours',
-    ];
+    useEffect(() => {
+        if (!rooms) {
+            return;
+        }
+        const dr = [];
+        for (let i = 0; i < rooms.length; i++) {
+            dr.push(rooms[i].room);
+        }
+        setDisplayRoom(dr);
+    }, [rooms]);
+    console.log(displayRoom);
+
+    //Block Select
+    useEffect(() => {
+        DataStore.query(Blocks).then(setBlocks);
+    }, []);
+
+    useEffect(() => {
+        if (!blocks) {
+            return;
+        }
+        const db = [];
+        for (let i = 0; i < blocks.length; i++) {
+            db.push(blocks[i].hour);
+        }
+        setDisplayBlock(db);
+    }, [blocks]);
+    console.log(displayBlock);
+
 
     const onCreateRoomInfo = () => {
 
-        if (!roomname) {
-            Alert.alert('Validation Error','Please select a room.');
+        if (!room) {
+            Alert.alert('Validation Error', 'Please select a room.');
             return;
         }
-        if (!blockselection) {
-            Alert.alert('Validation Error','Please select a time block.');
+        if (!block) {
+            Alert.alert('Validation Error', 'Please select a time block.');
             return;
         }
         if (!participants || parseInt(participants) > 20) {
-            Alert.alert('Validation Error','Please enter number of participants (max 20).');
+            Alert.alert('Validation Error', 'Please enter number of participants (max 20).');
             return;
         }
         if (!Coursenumber) {
-            Alert.alert('Validation Error','Please enter a course number.');
+            Alert.alert('Validation Error', 'Please enter a course number.');
             return;
         }
-        
+
         if (!teachername) {
-            Alert.alert('Validation Error','Please enter a teacher name.');
+            Alert.alert('Validation Error', 'Please enter a teacher name.');
             return;
         }
 
         Alert.alert('Success', 'Reservation created.');
-        
+
     };
 
     return (
         <ScrollView style={styles.page}>
             <View>
                 <SelectDropdown
-                    data={rooms}
+                    data={displayRoom}
                     defaultButtonText={'Select a room'}
                     onSelect={(selectedItem, index) => {
-                        setRoomName(selectedItem);
+                        setRoom(selectedItem);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                         return selectedItem;
@@ -74,10 +107,10 @@ const RoomInfoScreen = () => {
             </View>
             <View>
                 <SelectDropdown
-                    data={hour_block}
+                    data={displayBlock}
                     defaultButtonText={'Select a block'}
                     onSelect={(selectedItem, index) => {
-                        setBlockSelection(selectedItem);
+                        setBlock(selectedItem);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                         return selectedItem;

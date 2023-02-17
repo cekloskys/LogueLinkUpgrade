@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import '@azure/core-asynciterator-polyfill';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
@@ -7,7 +6,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { DataStore } from '@aws-amplify/datastore';
-import { Times } from '../../models';
+import { Times , Dates } from '../../models';
 
 const validator = require('validator');
 
@@ -17,6 +16,8 @@ const BasicInfoScreen = () => {
     const [studentemail, setStudentEmail] = useState('');
 
     const [date, setDate] = useState('');
+    const [dates, setDates] = useState([]);
+    const [displayDates, setDisplayDates] = useState([]);
 
     const [time, setTime] = useState('');
     const [times, setTimes] = useState([]);
@@ -24,6 +25,7 @@ const BasicInfoScreen = () => {
 
     const navigation = useNavigation();
 
+    //Times Select
     useEffect(() => {
         DataStore.query(Times).then(setTimes);
     }, []);
@@ -39,14 +41,23 @@ const BasicInfoScreen = () => {
         setDisplayTimes(dt);
     }, [times]);
     console.log(displayTimes);
-    const dates = [
-        '2/3/2023',
-        '2/4/2023',
-        '2/6/2023',
-        '2/8/2023',
-        '2/10/2023',
 
-    ];
+    // Dates select
+    useEffect(() => {
+        DataStore.query(Dates).then(setDates);
+    }, []);
+
+    useEffect(() => {
+        if (!dates) {
+            return;
+        }
+        const dd = [];
+        for (let i = 0; i < dates.length; i++) {
+            dd.push(dates[i].date);
+        }
+        setDisplayDates(dd);
+    }, [dates]);
+    console.log(displayDates);
 
     const onCreateInfo = () => {
 
@@ -89,7 +100,7 @@ const BasicInfoScreen = () => {
                 onChangeText={setStudentEmail}
             />
             <SelectDropdown
-                data={dates}
+                data={displayDates}
                 defaultButtonText={'Select a date'}
                 onSelect={(selectedItem, index) => {
                     setDate(selectedItem);
