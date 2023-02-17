@@ -13,6 +13,7 @@ import HowToScreen from '../screens/HowTo';
 import LinksScreen from '../screens/Links';
 import BasicInfoScreen from '../screens/BasicInfo';
 import RoomInfoScreen from '../screens/RoomInfo';
+import ReservationInfoScreen from '../screens/ReservationInfo';
 import { View, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get("window")
@@ -106,6 +107,7 @@ const ReservationsStack = createStackNavigator();
 const ReservationsStackNavigator = () => {
     return (
         <ReservationsStack.Navigator>
+            <ReservationsStack.Screen name="Reservation Information" component={ReservationInfoScreen} />
             <ReservationsStack.Screen name="Basic Information" component={BasicInfoScreen} />
             <ReservationsStack.Screen name="Room Information" component={RoomInfoScreen} />
         </ReservationsStack.Navigator>
