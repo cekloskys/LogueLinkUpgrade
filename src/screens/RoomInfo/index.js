@@ -68,7 +68,7 @@ const RoomInfoScreen = () => {
         setDisplayDates(dd);
     }, [dates]);
     console.log(displayDates);
-    
+
 
 
     const onCreateRoomInfo = async () => {
@@ -81,6 +81,21 @@ const RoomInfoScreen = () => {
             Alert.alert('Validation Error', 'Please select a start time');
             return;
         }
+
+        const check = await DataStore.query(Reservations,
+            (r) => r.and(r => [
+                r.date.eq(date),
+                r.startTime.eq(time),
+                r.room.eq(room)
+            ])
+        );
+        if (check.length != 0) {
+            Alert.alert('Validation Error', 'This date all ready exists');
+            return;
+        } else {
+            Alert.alert('Success', 'Reservation created.');
+        }
+
         const reservation = await DataStore.save(new Reservations({
             studentName: studentname,
             studentEmail: studentemail,
