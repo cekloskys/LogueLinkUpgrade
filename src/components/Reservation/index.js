@@ -9,11 +9,19 @@ import {
 } from 'react-native';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { DataStore } from 'aws-amplify';
+import { Reservations } from '../../models';
+import { useReservationContext } from '../../context/ReservationContext';
 
 
 const Reservation = props => {
   const navigation = useNavigation();
+  const {reservations, setReservations} = useReservationContext();
   const post = props.post;
+  const deleteReservation = async () => {
+    await DataStore.delete(Reservations, post.id);
+  };
+
   const onPress = () => {
     Alert.alert(
       'Please Comfirm',
@@ -22,7 +30,8 @@ const Reservation = props => {
         {
           text: 'Yes',
           onPress: () => {
-            console.log('Yes');
+            deleteReservation();
+            setReservations(reservations.filter((r) => r.id !== post.id));
           }
         },
         {

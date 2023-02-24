@@ -6,21 +6,24 @@
  */
 import 'react-native-gesture-handler';
 import React from 'react';
-import {LogBox} from 'react-native';
-import {client} from './apollo';
-import {ApolloProvider} from '@apollo/client';
+import { LogBox } from 'react-native';
+import { client } from './apollo';
+import { ApolloProvider } from '@apollo/client';
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigation/index.js';
 import { Amplify } from 'aws-amplify';
 import awsconfig from './src/aws-exports';
+import ReservationContextProvider from './src/context/ReservationContext';
 
-Amplify.configure({...awsconfig, Analytics: {disabled: true}});
+Amplify.configure({ ...awsconfig, Analytics: { disabled: true } });
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <RootNavigator />
+        <ReservationContextProvider>
+          <RootNavigator />
+        </ReservationContextProvider>
       </NavigationContainer>
     </ApolloProvider>
   );

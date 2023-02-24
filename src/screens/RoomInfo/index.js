@@ -8,8 +8,11 @@ import styles from './styles';
 import { Reservations, Times, Dates } from '../../models';
 import { useRoute } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
+import { useNavigation } from '@react-navigation/native';
 
 const RoomInfoScreen = () => {
+    const navigation = useNavigation();
+
     const [date, setDate] = useState('');
     const [dates, setDates] = useState([]);
     const [displayDates, setDisplayDates] = useState([]);
@@ -90,10 +93,8 @@ const RoomInfoScreen = () => {
             ])
         );
         if (check.length != 0) {
-            Alert.alert('Validation Error', 'This date all ready exists');
+            Alert.alert('Validation Error', room + ' is already reserved on ' + date + ' at ' + time + '.');
             return;
-        } else {
-            Alert.alert('Success', 'Reservation created.');
         }
 
         const reservation = await DataStore.save(new Reservations({
@@ -107,9 +108,9 @@ const RoomInfoScreen = () => {
             course: Coursenumber,
             teacher: teachername,
         }));
-        console.log(reservation);
-        Alert.alert('Success', 'Reservation created.');
 
+        Alert.alert('Success', 'Reservation created.');
+        navigation.navigate("Reservation Information");
     };
 
     return (

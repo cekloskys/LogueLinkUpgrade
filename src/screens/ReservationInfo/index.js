@@ -6,19 +6,11 @@ import { Reservations } from '../../models';
 import { DataStore } from 'aws-amplify';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { useReservationContext } from '../../context/ReservationContext';
 
 const ReservationInfoScreen = props => {
     const navigation = useNavigation();
-    const [reservations, setReservations] = useState([]);
-
-    const fetchReservations = async () => {
-        const results = await DataStore.query(Reservations);
-        setReservations(results);
-    };
-
-    useEffect(() => {
-        fetchReservations();
-    }, []);
+    const { reservations, setReservations } = useReservationContext();
 
     return (
         <View>
