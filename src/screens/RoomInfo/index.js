@@ -9,9 +9,11 @@ import { Reservations, Times, Dates } from '../../models';
 import { useRoute } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
 import { useNavigation } from '@react-navigation/native';
+import { useReservationContext } from '../../context/ReservationContext';
 
 const RoomInfoScreen = () => {
     const navigation = useNavigation();
+    const { reservations, setReservations } = useReservationContext();
 
     const [date, setDate] = useState('');
     const [dates, setDates] = useState([]);
@@ -23,19 +25,13 @@ const RoomInfoScreen = () => {
     const route = useRoute();
 
     const studentname = route.params?.studentname;
-    console.log(studentname);
+
     const studentemail = route.params?.studentemail;
-    console.log(studentemail);
     const participants = route.params?.participants;
-    console.log(participants);
     const Coursenumber = route.params?.Coursenumber;
-    console.log(Coursenumber);
     const teachername = route.params?.teachername;
-    console.log(teachername);
     const room = route.params?.room;
-    console.log(room);
     const block = route.params?.block;
-    console.log(block);
 
 
     //Times Select
@@ -47,13 +43,19 @@ const RoomInfoScreen = () => {
         if (!times) {
             return;
         }
+        times.sort((a, b) => (a.time > b.time) ? 1 : -1)
         const dt = [];
         for (let i = 0; i < times.length; i++) {
-            dt.push(times[i].time);
-        }
+            var hours = parseInt(times[i].time.substring(0, 2));
+            var suffix = hours <= 12 ? " AM" : " PM";
+            hours = ((hours + 11) % 12 + 1) + ':00' + suffix;
+            //dt.push(times[i].time);
+            dt.push(hours.toString());
+        }   
+        //dt.sort(); 
+        console.log(dt);
         setDisplayTimes(dt);
     }, [times]);
-    console.log(displayTimes);
 
     // Dates select
     useEffect(() => {
@@ -68,9 +70,9 @@ const RoomInfoScreen = () => {
         for (let i = 0; i < dates.length; i++) {
             dd.push(dates[i].date);
         }
+        dd.sort();
         setDisplayDates(dd);
     }, [dates]);
-    console.log(displayDates);
 
 
 
@@ -99,7 +101,7 @@ const RoomInfoScreen = () => {
 
         const reservation = await DataStore.save(new Reservations({
             studentName: studentname,
-            studentEmail: studentemail,
+            studentEmai: studentemail,
             date,
             startTime: time,
             room,
@@ -107,10 +109,12 @@ const RoomInfoScreen = () => {
             nbrParticipants: parseInt(participants),
             course: Coursenumber,
             teacher: teachername,
+            userID: 'daa68251-2904-4724-aaa4-cd135652cd63',
         }));
 
         Alert.alert('Success', 'Reservation created.');
         navigation.navigate("Reservation Information");
+
     };
 
     return (

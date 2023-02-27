@@ -14,6 +14,8 @@ import RootNavigator from './src/navigation/index.js';
 import { Amplify } from 'aws-amplify';
 import awsconfig from './src/aws-exports';
 import ReservationContextProvider from './src/context/ReservationContext';
+import AuthContextProvider from './src/context/AuthContext';
+import { withAuthenticator } from 'aws-amplify-react-native';
 
 Amplify.configure({ ...awsconfig, Analytics: { disabled: true } });
 
@@ -21,9 +23,11 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <ReservationContextProvider>
-          <RootNavigator />
-        </ReservationContextProvider>
+        <AuthContextProvider>
+          <ReservationContextProvider>
+            <RootNavigator />
+          </ReservationContextProvider>
+        </AuthContextProvider>
       </NavigationContainer>
     </ApolloProvider>
   );
@@ -32,4 +36,4 @@ const App = () => {
 LogBox.ignoreLogs(['Reanimated 2']);
 LogBox.ignoreLogs(['onAnimatedValueUpdate']);
 LogBox.ignoreLogs(['Warning: ']);
-export default App;
+export default withAuthenticator(App);

@@ -4,12 +4,13 @@ import { schema } from './schema';
 
 
 
-const { Blocks, Rooms, Times, Dates, Reservations } = initSchema(schema);
+const { Reservations, Times, User, Blocks, Rooms, Dates } = initSchema(schema);
 
 export {
+  Reservations,
+  Times,
+  User,
   Blocks,
   Rooms,
-  Times,
-  Dates,
-  Reservations
+  Dates
 };

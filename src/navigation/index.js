@@ -15,6 +15,9 @@ import BasicInfoScreen from '../screens/BasicInfo';
 import RoomInfoScreen from '../screens/RoomInfo';
 import ReservationInfoScreen from '../screens/ReservationInfo';
 import { View, Dimensions } from 'react-native';
+import ProfileScreen from '../screens/Profile';
+import { useAuthContext } from '../context/AuthContext';
+
 
 const { width, height } = Dimensions.get("window")
 
@@ -22,12 +25,18 @@ const Stack = createStackNavigator();
 
 const RootNavigator = () => {
 
+    const { dbUser } = useAuthContext();
+    console.log(dbUser);
+
     return (
 
         <Stack.Navigator screenOptions={{
             headerShown: false,
         }}>
-            <Stack.Screen name="HomeTabs" component={HomeTabs} />
+            {dbUser ? (
+                <Stack.Screen name="HomeTabs" component={HomeTabs} />
+            ) : (
+                <Stack.Screen name="Profile" component={ProfileScreen} />)}
             <Stack.Screen name={'Sign In'} component={SignInScreen} />
             <Stack.Screen
                 name={'Admin'}
@@ -73,6 +82,13 @@ const HomeTabs = () => {
                     component={ReservationsStackNavigator}
                     options={{
                         tabBarIcon: ({ color }) => (<Entypo name="calendar" color={color} size={25} />),
+                    }}
+                />
+                <Tab.Screen
+                    name="Profile"
+                    component={ProfileScreen}
+                    options={{
+                        tabBarIcon: ({ color }) => <FontAwesome5 name="user-alt" size={24} color={color} />,
                     }}
                 />
             </Tab.Navigator>
