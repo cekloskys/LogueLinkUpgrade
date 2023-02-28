@@ -9,6 +9,7 @@ import DeleteLinksScreen from '../screens/DeleteLinks';
 import CreateLinkScreen from '../screens/CreateLink';
 import { Feather, FontAwesome5, MaterialIcons } from 'react-native-vector-icons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import HowToScreen from '../screens/HowTo';
 import LinksScreen from '../screens/Links';
 import BasicInfoScreen from '../screens/BasicInfo';
@@ -33,10 +34,7 @@ const RootNavigator = () => {
         <Stack.Navigator screenOptions={{
             headerShown: false,
         }}>
-            {dbUser ? (
-                <Stack.Screen name="HomeTabs" component={HomeTabs} />
-            ) : (
-                <Stack.Screen name="Profile" component={ProfileScreen} />)}
+            <Stack.Screen name="HomeTabs" component={HomeTabs} />
             <Stack.Screen name={'Sign In'} component={SignInScreen} />
             <Stack.Screen
                 name={'Admin'}
@@ -88,7 +86,7 @@ const HomeTabs = () => {
                     name="Profile"
                     component={ProfileScreen}
                     options={{
-                        tabBarIcon: ({ color }) => <FontAwesome5 name="user-alt" size={24} color={color} />,
+                        tabBarIcon: ({ color }) => (<AntDesign name="user" color={color} size={25} />),
                     }}
                 />
             </Tab.Navigator>
