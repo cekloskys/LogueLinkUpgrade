@@ -22,6 +22,7 @@ type EagerReservations = {
   readonly course?: string | null;
   readonly teacher?: string | null;
   readonly userID: string;
+  readonly endTime?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -42,6 +43,7 @@ type LazyReservations = {
   readonly course?: string | null;
   readonly teacher?: string | null;
   readonly userID: string;
+  readonly endTime?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

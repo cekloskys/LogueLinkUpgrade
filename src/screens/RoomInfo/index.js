@@ -49,11 +49,17 @@ const RoomInfoScreen = () => {
         const dt = [];
         for (let i = 0; i < times.length; i++) {
             var hours = parseInt(times[i].time.substring(0, 2));
-            var suffix = hours <= 12 ? " AM" : " PM";
-            hours = ((hours + 11) % 12 + 1) + ':00' + suffix;
+            var suffix = hours < 12 ? " AM" : " PM";
+            hours = ((hours + 11) % 12 + 1);
+            //hours = ((hours + 11) % 12 + 1) + ':00' + suffix;
+            if(hours == 8 || hours == 9 || hours >= 1 && hours <= 4){
+                hours = '0' + hours + ':00' + suffix;
+            } else{
+                hours = hours + ':00' + suffix;
+            }
             //dt.push(times[i].time);
             dt.push(hours.toString());
-        }   
+        }
         //dt.sort(); 
         console.log(dt);
         setDisplayTimes(dt);
@@ -92,7 +98,8 @@ const RoomInfoScreen = () => {
         const check = await DataStore.query(Reservations,
             (r) => r.and(r => [
                 r.date.eq(date),
-                r.startTime.eq(time),
+                r.startTime.le(time),
+                r.endTime.gt(time),
                 r.room.eq(room)
             ])
         );
@@ -100,7 +107,15 @@ const RoomInfoScreen = () => {
             Alert.alert('Validation Error', room + ' is already reserved on ' + date + ' at ' + time + '.');
             return;
         }
-
+        var hours = parseInt(time.substring(0, 2));
+        console.log(hours);
+        hours = ((hours + 11) % 12 + 1 + parseInt(block));
+        console.log(hours);
+        var suffix = hours < 12 ? " AM" : " PM";
+        console.log(suffix);
+        hours = hours + ':00' + suffix;
+        console.log(hours);
+        
         const reservation = await DataStore.save(new Reservations({
             studentName: studentname,
             studentEmai: studentemail,
@@ -112,6 +127,7 @@ const RoomInfoScreen = () => {
             course: Coursenumber,
             teacher: teachername,
             userID: dbUser.id,
+            endTime: hours,
         }));
 
         Alert.alert('Success', 'Reservation created.');
