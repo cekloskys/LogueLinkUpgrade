@@ -7,6 +7,8 @@ import { User } from '../../models';
 import { useAuthContext } from '../../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 
+const validator = require('validator');
+
 const ProfileScreen = () => {
   const { dbUser } = useAuthContext();
 
@@ -18,6 +20,14 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
   const onSave = async () => {
+    if (!eAddress || !validator.isEmail(eAddress)) {
+      Alert.alert('Validation Error', 'Please enter a valid email.');
+      return;
+    }
+    if (!name) {
+      Alert.alert('Validation Error', 'Please enter your fullname.')
+    }
+
     if (dbUser) {
       await updateUser();
     } else {

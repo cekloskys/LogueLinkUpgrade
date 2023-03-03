@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
 import { Rooms, Blocks, Reservations } from '../../models';
 
-
 const validator = require('validator');
 
 const BasicInfoScreen = () => {
