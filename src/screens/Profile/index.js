@@ -20,12 +20,13 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
   const onSave = async () => {
+    if (!name) {
+      Alert.alert('Validation Error', 'Please enter your fullname.');
+      return;
+    }
     if (!eAddress || !validator.isEmail(eAddress)) {
       Alert.alert('Validation Error', 'Please enter a valid email.');
       return;
-    }
-    if (!name) {
-      Alert.alert('Validation Error', 'Please enter your fullname.')
     }
 
     if (dbUser) {

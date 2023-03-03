@@ -7,13 +7,15 @@ import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
 import { Rooms, Blocks, Reservations } from '../../models';
+import { useAuthContext } from '../../context/AuthContext';
 
 const validator = require('validator');
 
 const BasicInfoScreen = () => {
+    const { sub, setDBUser, dbUser } = useAuthContext();
 
-    const [studentname, setStudentName] = useState('');
-    const [studentemail, setStudentEmail] = useState('');
+    const [studentname, setStudentName] = useState(dbUser?.name || "");
+    const [studentemail, setStudentEmail] = useState(dbUser?.email || "");
     const [participants, setParticipants] = useState('');
     const [Coursenumber, setCourseNumber] = useState('');
     const [teachername, setTeacherName] = useState('');
@@ -65,11 +67,19 @@ const BasicInfoScreen = () => {
     const onCreateInfo = () => {
 
         if (!studentname) {
-            Alert.alert('Validation Error', 'Please your fullname. ');
+            Alert.alert('Validation Error', 'Please enter your fullname. ');
             return;
         }
         if (!studentemail || !validator.isEmail(studentemail)) {
             Alert.alert('Validation Error', 'Please enter a valid email.');
+            return;
+        }
+        if (!room) {
+            Alert.alert('Validation Error', 'Please select a room.');
+            return;
+        }
+        if (!block) {
+            Alert.alert('Validation Error', 'Please select a time block.');
             return;
         }
         if (!participants || parseInt(participants) > 20) {
@@ -85,14 +95,7 @@ const BasicInfoScreen = () => {
             Alert.alert('Validation Error', 'Please enter a teacher name.');
             return;
         }
-        if (!room) {
-            Alert.alert('Validation Error', 'Please select a room.');
-            return;
-        }
-        if (!block) {
-            Alert.alert('Validation Error', 'Please select a time block.');
-            return;
-        }
+        
 
         navigation.navigate('Room Information', {
             studentname: studentname,
@@ -122,31 +125,6 @@ const BasicInfoScreen = () => {
                 keyboardType='email-address'
                 onChangeText={setStudentEmail}
             />
-            <View>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Enter number of participants (max 20)'
-                    value={participants}
-                    onChangeText={setParticipants}
-                    keyboardType={'number-pad'}
-                />
-            </View>
-            <View>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Enter a course number'
-                    value={Coursenumber}
-                    onChangeText={setCourseNumber}
-                />
-            </View>
-            <View>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter instructor's name"
-                    value={teachername}
-                    onChangeText={setTeacherName}
-                />
-            </View>
             <View>
                 <SelectDropdown
                     data={displayRoom}
@@ -185,6 +163,32 @@ const BasicInfoScreen = () => {
                     rowTextStyle={styles.dropdownRowTxtStyle}
                 />
             </View>
+            <View>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Enter number of participants (max 20)'
+                    value={participants}
+                    onChangeText={setParticipants}
+                    keyboardType={'number-pad'}
+                />
+            </View>
+            <View>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Enter a course number'
+                    value={Coursenumber}
+                    onChangeText={setCourseNumber}
+                />
+            </View>
+            <View>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter instructor's name"
+                    value={teachername}
+                    onChangeText={setTeacherName}
+                />
+            </View>
+            
 
             <View style={styles.bottom}>
                 <Pressable style={styles.button} onPress={onCreateInfo}>

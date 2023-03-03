@@ -19,7 +19,7 @@ const ReservationInfoScreen = props => {
         //DataStore.query(User, (user) => user.sub.eq(sub)).then((users) =>
             //setDBUser(users[0]));
         if (!dbUser) {
-            alert('You must create a profile before creating a reservation')
+            alert('You must create a profile before creating a reservation.')
             navigation.navigate("Profile")
         } else {
             navigation.navigate("Basic Information")

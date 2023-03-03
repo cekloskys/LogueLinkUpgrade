@@ -10,10 +10,12 @@ import { useRoute } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
 import { useNavigation } from '@react-navigation/native';
 import { useReservationContext } from '../../context/ReservationContext';
+import { useAuthContext } from '../../context/AuthContext';
 
 const RoomInfoScreen = () => {
     const navigation = useNavigation();
     const { reservations, setReservations } = useReservationContext();
+    const { sub, setDBUser, dbUser } = useAuthContext();
 
     const [date, setDate] = useState('');
     const [dates, setDates] = useState([]);
@@ -79,11 +81,11 @@ const RoomInfoScreen = () => {
     const onCreateRoomInfo = async () => {
 
         if (!date) {
-            Alert.alert('Validation Error', 'Please select a date');
+            Alert.alert('Validation Error', 'Please select a date.');
             return;
         }
         if (!time) {
-            Alert.alert('Validation Error', 'Please select a start time');
+            Alert.alert('Validation Error', 'Please select a start time.');
             return;
         }
 
@@ -109,7 +111,7 @@ const RoomInfoScreen = () => {
             nbrParticipants: parseInt(participants),
             course: Coursenumber,
             teacher: teachername,
-            userID: 'daa68251-2904-4724-aaa4-cd135652cd63',
+            userID: dbUser.id,
         }));
 
         Alert.alert('Success', 'Reservation created.');
