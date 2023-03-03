@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, View, Text, Pressable } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { FlatList, View, Text, Pressable, RefreshControl } from 'react-native';
 import Reservation from '../../components/Reservation';
 import '@azure/core-asynciterator-polyfill';
 import { Reservations, User } from '../../models';
@@ -14,10 +14,11 @@ const ReservationInfoScreen = props => {
     const { reservations, setReservations } = useReservationContext();
 
     const { sub, setDBUser, dbUser } = useAuthContext();
+    const [refreshing, setRefreshing] = useState(false);
 
     const onPress = () => {
         //DataStore.query(User, (user) => user.sub.eq(sub)).then((users) =>
-            //setDBUser(users[0]));
+        //setDBUser(users[0]));
         if (!dbUser) {
             alert('You must create a profile before creating a reservation.')
             navigation.navigate("Profile")
@@ -27,11 +28,22 @@ const ReservationInfoScreen = props => {
 
     };
 
+    const onRefresh = useCallback(async () => {
+        setRefreshing(true);
+        try {
+            const results = await DataStore.query(Reservations, r => r.userID.eq(dbUser?.id)).then(setReservations);
+            setRefreshing(false);
+        } catch (error) {
+            console.error(error);
+        }
+    }, [refreshing]);
+
     return (
         <View>
             <FlatList
                 data={reservations}
                 renderItem={({ item }) => <Reservation post={item} />}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 ListFooterComponent={() =>
                     <Pressable onPress={onPress} style={styles.button}>
                         <Text style={styles.buttonText}>Create Reservation</Text>
