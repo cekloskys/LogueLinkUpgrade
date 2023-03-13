@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '@azure/core-asynciterator-polyfill';
-import { View, Text, TextInput, Pressable, Alert } from 'react-native';
+import { View, Text, TextInput, Pressable, Alert, ScrollView } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
-import { ScrollView } from 'react-native-gesture-handler';
+//import { ScrollView } from 'react-native-gesture-handler';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
@@ -57,9 +57,10 @@ const BasicInfoScreen = () => {
 
             return;
         }
+        blocks.sort((a, b) => a.hour - b.hour);
         const db = [];
         for (let i = 0; i < blocks.length; i++) {
-            db.push(blocks[i].hour);
+            db.push(blocks[i].hour + (blocks[i].hour == 1 ? ' hour' : ' hours'));
         }
         setDisplayBlock(db);
     }, [blocks]);
@@ -95,7 +96,7 @@ const BasicInfoScreen = () => {
             Alert.alert('Validation Error', 'Please enter a teacher name.');
             return;
         }
-        
+
 
         navigation.navigate('Room Information', {
             studentname: studentname,
@@ -188,7 +189,7 @@ const BasicInfoScreen = () => {
                     onChangeText={setTeacherName}
                 />
             </View>
-            
+
 
             <View style={styles.bottom}>
                 <Pressable style={styles.button} onPress={onCreateInfo}>
