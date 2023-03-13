@@ -52,9 +52,9 @@ const RoomInfoScreen = () => {
             var suffix = hours < 12 ? " AM" : " PM";
             hours = ((hours + 11) % 12 + 1);
             //hours = ((hours + 11) % 12 + 1) + ':00' + suffix;
-            if(hours == 8 || hours == 9 || hours >= 1 && hours <= 4){
+            if (hours == 8 || hours == 9 || hours >= 1 && hours <= 4) {
                 hours = '0' + hours + ':00' + suffix;
-            } else{
+            } else {
                 hours = hours + ':00' + suffix;
             }
             //dt.push(times[i].time);
@@ -109,13 +109,24 @@ const RoomInfoScreen = () => {
         }
         var hours = parseInt(time.substring(0, 2));
         console.log(hours);
-        hours = ((hours + 11) % 12 + 1 + parseInt(block));
+        if (hours == 12) {
+            hours = parseInt(block);
+        } else if (hours == 11 && block == 2) {
+            hours = 1;
+        }
+        else {
+            hours = hours + parseInt(block);
+        }
+
         console.log(hours);
-        var suffix = hours < 12 ? " AM" : " PM";
+        var suffix = hours < 12 && hours >= 8 ? " AM" : " PM";
         console.log(suffix);
+        if (hours < 10) {
+            hours = '0' + hours
+        }
         hours = hours + ':00' + suffix;
         console.log(hours);
-        
+
         const reservation = await DataStore.save(new Reservations({
             studentName: studentname,
             studentEmai: studentemail,
