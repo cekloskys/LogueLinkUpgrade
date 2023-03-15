@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   page: {
     padding: 10,
+    flex: 1,
   },
   dropdownBtnStyle: {
     width: '100%',

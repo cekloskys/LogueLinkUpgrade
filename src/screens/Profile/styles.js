@@ -19,16 +19,15 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'lightgrey',
-    marginTop: "auto",
-    padding: 20,
-    alignItems: "center",
-    margin: 10,
-    borderRadius: 15,
+    height: 50,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 5,
   },
   buttonText: {
-    color: "white",
-    fontWeight: "600",
-    fontSize: 18,
+    fontSize: 16,
+    color: '#444',
   },
 
 });

@@ -25,7 +25,7 @@ const ReservationContextProvider = ({ children }) => {
         DataStore.query(Reservations, r => r.userID.eq(dbUser?.id)).then(setReservations);
     }, [dbUser]);
 
-    return (<ReservationContext.Provider value={{ reservations, setReservations }}>
+    return (<ReservationContext.Provider value={{ reservations, setReservations, fetchReservations }}>
         {children}</ReservationContext.Provider>
     );
 };

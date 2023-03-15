@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '@azure/core-asynciterator-polyfill';
-import { View, Text, TextInput, Pressable, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, Pressable, Alert, ScrollView, SafeAreaView } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 //import { ScrollView } from 'react-native-gesture-handler';
 import styles from './styles';
