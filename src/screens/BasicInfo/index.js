@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '@azure/core-asynciterator-polyfill';
-import { View, Text, TextInput, Pressable, Alert, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Pressable, Alert, ScrollView } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 //import { ScrollView } from 'react-native-gesture-handler';
 import styles from './styles';
@@ -110,9 +110,7 @@ const BasicInfoScreen = () => {
 
     };
 
-    return (
-        <ScrollView style={styles.page}>
-            <TextInput
+    /* <TextInput
                 style={styles.input}
                 placeholder='Enter your fullname'
                 value={studentname}
@@ -126,6 +124,13 @@ const BasicInfoScreen = () => {
                 keyboardType='email-address'
                 onChangeText={setStudentEmail}
             />
+            */ //Put this back on line 132
+
+    return (
+        <ScrollView style={styles.page}>
+
+            
+            
             <View>
                 <SelectDropdown
                     data={displayRoom}

@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   page: {
     padding: 10,
     flex: 1,
+    height: 'auto'
   },
   dropdownBtnStyle: {
     width: '100%',
