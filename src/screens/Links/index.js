@@ -10,7 +10,7 @@ const LinksScreem = props => {
     DataStore.query(Links).then(setLinks);
 }, []);
   return (
-    <View>
+    <View style={{backgroundColor: 'white'}}>
       <FlatList data={links} renderItem={({item}) => <Link post={item} />} />
     </View>
   );

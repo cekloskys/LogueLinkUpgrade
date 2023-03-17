@@ -3,7 +3,7 @@ import { FlatList, View, Text, Pressable, RefreshControl } from 'react-native';
 import Reservation from '../../components/Reservation';
 import '@azure/core-asynciterator-polyfill';
 import { Reservations, User } from '../../models';
-import { DataStore } from 'aws-amplify';
+import { DataStore, Hub } from 'aws-amplify';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useReservationContext } from '../../context/ReservationContext';
@@ -31,7 +31,7 @@ const ReservationInfoScreen = props => {
     const onRefresh = useCallback(async () => {
         setRefreshing(true);
         try {
-            const results = await DataStore.query(Reservations, r => r.userID.eq(dbUser?.id)).then(setReservations);
+            await DataStore.query(Reservations, r => r.userID.eq(dbUser?.id)).then(setReservations);
             setRefreshing(false);
         } catch (error) {
             console.error(error);
@@ -39,7 +39,7 @@ const ReservationInfoScreen = props => {
     }, [refreshing]);
 
     return (
-        <View>
+        <View style={{backgroundColor: 'white', flex:1}}>
             <FlatList
                 data={reservations}
                 renderItem={({ item }) => <Reservation post={item} />}

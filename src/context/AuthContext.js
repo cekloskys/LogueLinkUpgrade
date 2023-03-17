@@ -15,7 +15,7 @@ const AuthContextProvider = ({ children }) => {
                 Auth.currentAuthenticatedUser({ bypassCache: true }).then(setAuthUser);
         }, []);
 
-        const getDbUser = async() => {
+        const getDbUser = async () => {
                 await DataStore.query(User, (user) => user.sub.eq(sub)).then((users) =>
                         setDBUser(users[0]));
         };
@@ -25,11 +25,8 @@ const AuthContextProvider = ({ children }) => {
                         return;
                 }
                 getDbUser();
-                
+
         }, [sub]);
-
-
-
         return (
                 <AuthContext.Provider value={{ authUser, dbUser, sub, setDBUser }}>
                         {children}
@@ -37,8 +34,5 @@ const AuthContextProvider = ({ children }) => {
         );
 };
 
-
-
 export default AuthContextProvider;
-
 export const useAuthContext = () => useContext(AuthContext);

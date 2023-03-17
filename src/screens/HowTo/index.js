@@ -10,7 +10,7 @@ const HowToScreen = props => {
     DataStore.query(Tutorials).then(setTutorials);
 }, []);
   return (
-    <View>
+    <View style={{backgroundColor: 'white'}}>
       <FlatList data={tutorials} renderItem={({item}) => <HowTo post={item} />} />
     </View>
   );
