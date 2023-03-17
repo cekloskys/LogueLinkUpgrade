@@ -6,6 +6,66 @@ import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/
 
 
 
+type EagerTutorials = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Tutorials, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly uri?: string | null;
+  readonly title?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTutorials = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Tutorials, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly uri?: string | null;
+  readonly title?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Tutorials = LazyLoading extends LazyLoadingDisabled ? EagerTutorials : LazyTutorials
+
+export declare const Tutorials: (new (init: ModelInit<Tutorials>) => Tutorials) & {
+  copyOf(source: Tutorials, mutator: (draft: MutableModel<Tutorials>) => MutableModel<Tutorials> | void): Tutorials;
+}
+
+type EagerLinks = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Links, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly uri?: string | null;
+  readonly title?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyLinks = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Links, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly uri?: string | null;
+  readonly title?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Links = LazyLoading extends LazyLoadingDisabled ? EagerLinks : LazyLinks
+
+export declare const Links: (new (init: ModelInit<Links>) => Links) & {
+  copyOf(source: Links, mutator: (draft: MutableModel<Links>) => MutableModel<Links> | void): Links;
+}
+
 type EagerReservations = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Reservations, 'id'>;
