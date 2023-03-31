@@ -87,14 +87,36 @@ const BasicInfoScreen = () => {
             Alert.alert('Validation Error', 'Please enter number of participants (max 20).');
             return;
         }
-        if (!Coursenumber) {
-            Alert.alert('Validation Error', 'Please enter a course number.');
-            return;
-        }
-
-        if (!teachername) {
-            Alert.alert('Validation Error', 'Please enter a teacher name.');
-            return;
+        if(room ==='Walker Room'){
+            if (!Coursenumber) {
+                Alert.alert('Validation Error', 'Walker romm requires a course number.');
+                return;
+            }
+    
+            if (!teachername) {
+                Alert.alert('Validation Error', 'Walker romm requires a teacher name.');
+                return;
+            }
+            if (!studentname) {
+                Alert.alert('Validation Error', 'Please enter your fullname. ');
+                return;
+            }
+            if (!studentemail || !validator.isEmail(studentemail)) {
+                Alert.alert('Validation Error', 'Please enter a valid email.');
+                return;
+            }
+            if (!room) {
+                Alert.alert('Validation Error', 'Please select a room.');
+                return;
+            }
+            if (!block) {
+                Alert.alert('Validation Error', 'Please select a time block.');
+                return;
+            }
+            if (!participants || parseInt(participants) > 20) {
+                Alert.alert('Validation Error', 'Please enter number of participants (max 20).');
+                return;
+            }
         }
 
 
@@ -109,22 +131,6 @@ const BasicInfoScreen = () => {
         });
 
     };
-
-    /* <TextInput
-                style={styles.input}
-                placeholder='Enter your fullname'
-                value={studentname}
-                keyboardType='name-phone-pad'
-                onChangeText={setStudentName}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder='Enter your email'
-                value={studentemail}
-                keyboardType='email-address'
-                onChangeText={setStudentEmail}
-            />
-            */ //Put this back on line 132
 
     return (
         <ScrollView style={styles.page}>
@@ -181,7 +187,7 @@ const BasicInfoScreen = () => {
             <View>
                 <TextInput
                     style={styles.input}
-                    placeholder='Enter a course number'
+                    placeholder='Enter a course number ('
                     value={Coursenumber}
                     onChangeText={setCourseNumber}
                 />
