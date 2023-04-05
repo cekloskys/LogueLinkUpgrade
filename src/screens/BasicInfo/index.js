@@ -187,7 +187,7 @@ const BasicInfoScreen = () => {
             <View>
                 <TextInput
                     style={styles.input}
-                    placeholder='Enter a course number ('
+                    placeholder='Enter a course number'
                     value={Coursenumber}
                     onChangeText={setCourseNumber}
                 />

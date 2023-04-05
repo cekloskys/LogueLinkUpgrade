@@ -45,6 +45,8 @@ const RoomInfoScreen = () => {
         if (!times) {
             return;
         }
+
+
         times.sort((a, b) => (a.time > b.time) ? 1 : -1)
         const dt = [];
         for (let i = 0; i < times.length; i++) {
@@ -74,9 +76,17 @@ const RoomInfoScreen = () => {
         if (!dates) {
             return;
         }
+        const today = new Date(Date.now());
         const dd = [];
+        console.log(dates)
+        let arr = [];
         for (let i = 0; i < dates.length; i++) {
-            dd.push(dates[i].date);
+            arr = dates[i].date.split("/");
+            console.log(arr);
+            if (new Date(arr[2],arr[0]-1,arr[1]) >= today) {
+                dd.push(dates[i].date);
+            }
+
         }
         dd.sort();
         setDisplayDates(dd);
