@@ -2,9 +2,9 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#CFD2CF',
     height: 50,
-    borderRadius: 10,
+    borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 5,
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    color: '#444',
+    color: 'white',
   },
 });
 export default styles;

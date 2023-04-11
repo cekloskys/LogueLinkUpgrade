@@ -3,32 +3,31 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   page: {
     padding: 10,
-  },
-  title: {
-    marginTop: 60,
-    fontSize: 30,
-    fontWeight: "bold",
-    textAlign: "center",
-    margin: 10,
+    backgroundColor: 'white',
+    flex: 1,
   },
   input: {
-    margin: 10,
-    backgroundColor: "white",
-    padding: 15,
+    height: 50,
+    backgroundColor: 'white',
+    padding: 10,
+    marginVertical: 10,
+    borderWidth: 1,
+    borderColor: '#CFD2CF',
     borderRadius: 5,
+    fontSize: 16,
+    paddingLeft: 10,
   },
   button: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#CFD2CF',
     height: 50,
-    borderRadius: 10,
+    borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 5,
-    marginHorizontal: 10,
+    marginVertical: 10,
   },
   buttonText: {
     fontSize: 16,
-    color: '#444',
+    color: 'white',
   },
 
 });

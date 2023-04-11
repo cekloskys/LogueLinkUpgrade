@@ -91,7 +91,7 @@ const HomeScreen = props => {
         <Pressable
           style={styles.searchButton}
           onPress={() => navigation.navigate('View Links')}>
-          <Text style={styles.searchButtonText}>View Links</Text>
+          <Text style={styles.searchButtonText}>VIEW LINKS</Text>
         </Pressable>
       </View>
     </OrientationView>

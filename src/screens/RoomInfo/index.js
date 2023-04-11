@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Pressable, Alert } from 'react-native';
+import { View, Text, Pressable, Alert } from 'react-native';
 import '@azure/core-asynciterator-polyfill';
 import { ScrollView } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import styles from './styles';
-// import { DataStore } from '@aws-amplify/datastore';
 import { Reservations, Times, Dates } from '../../models';
 import { useRoute } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
@@ -35,7 +34,6 @@ const RoomInfoScreen = () => {
     const room = route.params?.room;
     const block = route.params?.block;
 
-
     //Times Select
     useEffect(() => {
         DataStore.query(Times).then(setTimes);
@@ -45,7 +43,6 @@ const RoomInfoScreen = () => {
         if (!times) {
             return;
         }
-
 
         times.sort((a, b) => (a.time > b.time) ? 1 : -1)
         const dt = [];
@@ -83,7 +80,7 @@ const RoomInfoScreen = () => {
         for (let i = 0; i < dates.length; i++) {
             arr = dates[i].date.split("/");
             console.log(arr);
-            if (new Date(arr[2],arr[0]-1,arr[1]) >= today) {
+            if (new Date(arr[2], arr[0] - 1, arr[1]) >= today) {
                 dd.push(dates[i].date);
             }
 
@@ -91,8 +88,6 @@ const RoomInfoScreen = () => {
         dd.sort();
         setDisplayDates(dd);
     }, [dates]);
-
-
 
     const onCreateRoomInfo = async () => {
 
@@ -162,7 +157,7 @@ const RoomInfoScreen = () => {
             <View>
                 <SelectDropdown
                     data={displayDates}
-                    defaultButtonText={'Select a date'}
+                    defaultButtonText={'SELECT A DATE'}
                     onSelect={(selectedItem, index) => {
                         setDate(selectedItem);
                     }}
@@ -180,7 +175,7 @@ const RoomInfoScreen = () => {
                 />
                 <SelectDropdown
                     data={displayTimes}
-                    defaultButtonText={'Select a start time'}
+                    defaultButtonText={'SELECT A START TIME'}
                     onSelect={(selectedItem, index) => {
                         setTime(selectedItem);
                     }}
@@ -198,10 +193,9 @@ const RoomInfoScreen = () => {
                 />
 
             </View>
-
             <View style={styles.bottom}>
                 <Pressable style={styles.button} onPress={onCreateRoomInfo}>
-                    <Text style={styles.buttonText}>Submit</Text>
+                    <Text style={styles.buttonText}>SUBMIT</Text>
                 </Pressable>
             </View>
         </ScrollView>

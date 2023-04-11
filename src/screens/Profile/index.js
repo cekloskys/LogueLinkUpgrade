@@ -62,8 +62,7 @@ const ProfileScreen = () => {
   }
 
   return (
-    <SafeAreaView>
-      <Text style={styles.title}>Profile</Text>
+    <SafeAreaView style={styles.page}>
       <TextInput
         value={name}
         onChangeText={setName}
@@ -77,10 +76,10 @@ const ProfileScreen = () => {
         style={styles.input}
       />
       <Pressable onPress={onSave} style={styles.button}>
-        <Text style={styles.buttonText}>Save</Text>
+        <Text style={styles.buttonText}>SAVE</Text>
       </Pressable>
       <Pressable onPress={() => Auth.signOut()} style={styles.button}>
-        <Text style={styles.buttonText}>SignOut</Text>
+        <Text style={styles.buttonText}>SIGN OUT</Text>
       </Pressable></SafeAreaView>
   );
 }

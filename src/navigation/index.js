@@ -19,7 +19,6 @@ import { View, Dimensions } from 'react-native';
 import ProfileScreen from '../screens/Profile';
 import { useAuthContext } from '../context/AuthContext';
 
-
 const { width, height } = Dimensions.get("window")
 
 const Stack = createStackNavigator();
@@ -60,7 +59,7 @@ const HomeTabs = () => {
             width,
             height,
         }}>
-            <Tab.Navigator barStyle={{ backgroundColor: 'white' }}>
+            <Tab.Navigator barStyle={{ backgroundColor: '#FA9494' }}>
                 <Tab.Screen
                     name="Links"
                     component={HomeStackNavigator}
@@ -84,7 +83,7 @@ const HomeTabs = () => {
                 />
                 <Tab.Screen
                     name="Profile"
-                    component={ProfileScreen}
+                    component={ProfileStackNavigator}
                     options={{
                         tabBarIcon: ({ color }) => (<AntDesign name="user" color={color} size={25} />),
                     }}
@@ -94,11 +93,21 @@ const HomeTabs = () => {
     );
 };
 
+const ProfileStack = createStackNavigator();
+
+const ProfileStackNavigator = () => {
+    return (
+        <ProfileStack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#F5EDDC' } }}>
+            <ProfileStack.Screen name="Your Profile" component={ProfileScreen} />
+        </ProfileStack.Navigator>
+    );
+};
+
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigator = () => {
     return (
-        <HomeStack.Navigator>
+        <HomeStack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#F5EDDC' } }}>
             <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
             <HomeStack.Screen name="View Links" component={LinksScreen} />
         </HomeStack.Navigator>
@@ -109,7 +118,7 @@ const OrdersStack = createStackNavigator();
 
 const OrdersStackNavigator = () => {
     return (
-        <OrdersStack.Navigator>
+        <OrdersStack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#F5EDDC' } }}>
             <OrdersStack.Screen name="View Tutorials" component={HowToScreen} />
             <OrdersStack.Screen name="Tutorial Details" component={HowToDetailScreen} />
         </OrdersStack.Navigator>
@@ -120,7 +129,7 @@ const ReservationsStack = createStackNavigator();
 
 const ReservationsStackNavigator = () => {
     return (
-        <ReservationsStack.Navigator>
+        <ReservationsStack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#F5EDDC' } }}>
             <ReservationsStack.Screen name="Reservation Information" component={ReservationInfoScreen} />
             <ReservationsStack.Screen name="Basic Information" component={BasicInfoScreen} />
             <ReservationsStack.Screen name="Room Information" component={RoomInfoScreen} />

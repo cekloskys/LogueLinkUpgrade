@@ -39,16 +39,17 @@ const ReservationInfoScreen = props => {
     }, [refreshing]);
 
     return (
-        <View style={{backgroundColor: 'white', flex:1}}>
+        <View style={{ backgroundColor: 'white', flex: 1 }}>
             <FlatList
                 data={reservations}
                 renderItem={({ item }) => <Reservation post={item} />}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-                ListFooterComponent={() =>
-                    <Pressable onPress={onPress} style={styles.button}>
-                        <Text style={styles.buttonText}>Create Reservation</Text>
-                    </Pressable>}
             />
+            <View style={styles.bottom}>
+                <Pressable style={styles.button} onPress={onPress}>
+                    <Text style={styles.buttonText}>CREATE RESERVATION</Text>
+                </Pressable>
+            </View>
         </View>
     );
 };

@@ -134,13 +134,10 @@ const BasicInfoScreen = () => {
 
     return (
         <ScrollView style={styles.page}>
-
-            
-            
             <View>
                 <SelectDropdown
                     data={displayRoom}
-                    defaultButtonText={'Select a room'}
+                    defaultButtonText={'SELECT A ROOM'}
                     onSelect={(selectedItem, index) => {
                         setRoom(selectedItem);
                     }}
@@ -158,7 +155,7 @@ const BasicInfoScreen = () => {
                 />
                 <SelectDropdown
                     data={displayBlock}
-                    defaultButtonText={'Select a block'}
+                    defaultButtonText={'SELECT A BLOCK'}
                     onSelect={(selectedItem, index) => {
                         setBlock(selectedItem);
                     }}
@@ -200,11 +197,9 @@ const BasicInfoScreen = () => {
                     onChangeText={setTeacherName}
                 />
             </View>
-
-
             <View style={styles.bottom}>
                 <Pressable style={styles.button} onPress={onCreateInfo}>
-                    <Text style={styles.buttonText}>Next</Text>
+                    <Text style={styles.buttonText}>NEXT</Text>
                 </Pressable>
             </View>
         </ScrollView>
