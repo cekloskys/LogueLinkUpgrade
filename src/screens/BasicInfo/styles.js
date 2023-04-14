@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
+    color: 'black',
     height: 50,
     backgroundColor: 'white',
     padding: 5,

@@ -54,7 +54,7 @@ const signUpConfig = {
       required: true,
       displayOrder: 1,
       type: "string",
-      placeholder: "Enter username (must be a valid email)",
+      placeholder: "Enter username (must be valid CHC email)",
     },
     {
       label: "Password",

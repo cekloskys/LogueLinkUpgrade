@@ -10,10 +10,10 @@ import { useNavigation } from '@react-navigation/native';
 const validator = require('validator');
 
 const ProfileScreen = () => {
-  const { dbUser } = useAuthContext();
+  const { dbUser, authUser } = useAuthContext();
 
   const [name, setName] = useState(dbUser?.name || "");
-  const [eAddress, setEAddress] = useState(dbUser?.email || "");
+  const [eAddress, setEAddress] = useState(dbUser?.email || authUser?.attributes?.email || "");
 
   const { sub, setDBUser } = useAuthContext();
 
@@ -25,9 +25,17 @@ const ProfileScreen = () => {
       return;
     }
     if (!eAddress || !validator.isEmail(eAddress)) {
-      Alert.alert('Validation Error', 'Please enter a valid email.');
+
+      Alert.alert('Validation Error', 'Please enter valid CHC email.');
       return;
     }
+    /* if(eAddress){
+       const chc = eAddress.split('@');
+       if(chc[1]!=='chc.edu'){
+         Alert.alert('Validation Error', 'Please enter valid CHC email.');
+       return;
+       }
+     } */
 
     if (dbUser) {
       await updateUser();
@@ -64,12 +72,14 @@ const ProfileScreen = () => {
   return (
     <SafeAreaView style={styles.page}>
       <TextInput
+        placeholderTextColor="grey"
         value={name}
         onChangeText={setName}
         placeholder="Name"
         style={styles.input}
       />
       <TextInput
+        placeholderTextColor="grey"
         value={eAddress}
         onChangeText={setEAddress}
         placeholder="Email Address"

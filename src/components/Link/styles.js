@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   description: {
+    color:'black',
     fontSize: 18,
     marginLeft: 10,
     flex: 1,

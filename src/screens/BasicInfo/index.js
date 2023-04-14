@@ -87,12 +87,12 @@ const BasicInfoScreen = () => {
             Alert.alert('Validation Error', 'Please enter number of participants (max 20).');
             return;
         }
-        if(room ==='Walker Room'){
+        if (room === 'Walker Room') {
             if (!Coursenumber) {
                 Alert.alert('Validation Error', 'Walker romm requires a course number.');
                 return;
             }
-    
+
             if (!teachername) {
                 Alert.alert('Validation Error', 'Walker romm requires a teacher name.');
                 return;
@@ -174,6 +174,7 @@ const BasicInfoScreen = () => {
             </View>
             <View>
                 <TextInput
+                    placeholderTextColor="grey"
                     style={styles.input}
                     placeholder='Enter number of participants (max 20)'
                     value={participants}
@@ -183,6 +184,7 @@ const BasicInfoScreen = () => {
             </View>
             <View>
                 <TextInput
+                    placeholderTextColor="grey"
                     style={styles.input}
                     placeholder='Enter a course number'
                     value={Coursenumber}
@@ -191,6 +193,7 @@ const BasicInfoScreen = () => {
             </View>
             <View>
                 <TextInput
+                    placeholderTextColor="grey"
                     style={styles.input}
                     placeholder="Enter instructor's name"
                     value={teachername}
