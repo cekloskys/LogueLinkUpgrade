@@ -107,6 +107,7 @@ const CreateLinkScreen = () => {
     <View style={styles.container}>
       <View style={styles.newCourseContainer}>
         <TextInput
+          
           value={uri}
           onChangeText={value => setURI(value)}
           style={styles.nameInput}

@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
+    color: 'black',
     height: 50,
     backgroundColor: 'white',
     padding: 10,
