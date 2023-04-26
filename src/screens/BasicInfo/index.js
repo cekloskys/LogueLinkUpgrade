@@ -46,6 +46,7 @@ const BasicInfoScreen = () => {
         }
         setDisplayRoom(dr);
     }, [rooms]);
+    console.log(rooms);
 
     //Block Select
     useEffect(() => {

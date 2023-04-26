@@ -59,7 +59,7 @@ const HomeTabs = () => {
             width,
             height,
         }}>
-            <Tab.Navigator barStyle={{ backgroundColor: '#FA9494' }}>
+            <Tab.Navigator barStyle={{ backgroundColor: '#F5EDDC' }}>
                 <Tab.Screen
                     name="Links"
                     component={HomeStackNavigator}
