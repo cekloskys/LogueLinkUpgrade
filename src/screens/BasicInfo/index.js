@@ -90,12 +90,12 @@ const BasicInfoScreen = () => {
         }
         if (room === 'Walker Room') {
             if (!Coursenumber) {
-                Alert.alert('Validation Error', 'Walker romm requires a course number.');
+                Alert.alert('Validation Error', 'Walker room requires a course number.');
                 return;
             }
 
             if (!teachername) {
-                Alert.alert('Validation Error', 'Walker romm requires a teacher name.');
+                Alert.alert('Validation Error', 'Walker room requires a teacher name.');
                 return;
             }
             if (!studentname) {
