@@ -50,17 +50,13 @@ const RoomInfoScreen = () => {
             var hours = parseInt(times[i].time.substring(0, 2));
             var suffix = hours < 12 ? " AM" : " PM";
             hours = ((hours + 11) % 12 + 1);
-            //hours = ((hours + 11) % 12 + 1) + ':00' + suffix;
             if (hours == 8 || hours == 9 || hours >= 1 && hours <= 4) {
                 hours = '0' + hours + ':00' + suffix;
             } else {
                 hours = hours + ':00' + suffix;
             }
-            //dt.push(times[i].time);
             dt.push(hours.toString());
         }
-        //dt.sort(); 
-        console.log(dt);
         setDisplayTimes(dt);
     }, [times]);
 
@@ -75,11 +71,9 @@ const RoomInfoScreen = () => {
         }
         const today = new Date(Date.now());
         const dd = [];
-        console.log(dates)
         let arr = [];
         for (let i = 0; i < dates.length; i++) {
             arr = dates[i].date.split("/");
-            console.log(arr);
             if (new Date(arr[2], arr[0] - 1, arr[1]) >= today) {
                 dd.push(dates[i].date);
             }
@@ -113,7 +107,6 @@ const RoomInfoScreen = () => {
             return;
         }
         var hours = parseInt(time.substring(0, 2));
-        console.log(hours);
         if (hours == 12) {
             hours = parseInt(block);
         } else if (hours == 11 && block == 2) {
@@ -123,14 +116,11 @@ const RoomInfoScreen = () => {
             hours = hours + parseInt(block);
         }
 
-        console.log(hours);
         var suffix = hours < 12 && hours >= 8 ? " AM" : " PM";
-        console.log(suffix);
         if (hours < 10) {
             hours = '0' + hours
         }
         hours = hours + ':00' + suffix;
-        console.log(hours);
 
         const reservation = await DataStore.save(new Reservations({
             studentName: studentname,

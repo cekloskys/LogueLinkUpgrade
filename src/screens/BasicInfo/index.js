@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '@azure/core-asynciterator-polyfill';
 import { View, Text, TextInput, Pressable, Alert, ScrollView } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
-//import { ScrollView } from 'react-native-gesture-handler';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
@@ -46,7 +45,7 @@ const BasicInfoScreen = () => {
         }
         setDisplayRoom(dr);
     }, [rooms]);
-    console.log(rooms);
+    
 
     //Block Select
     useEffect(() => {

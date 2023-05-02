@@ -10,8 +10,7 @@ const ReservationContextProvider = ({ children }) => {
     const { dbUser } = useAuthContext();
 
     const [reservations, setReservations] = useState([]);
-    console.log('dbUser');
-    console.log(dbUser);
+    
 
     const fetchReservations = async () => {
         const results = await DataStore.query(Reservations, r => r.userID.eq(dbUser?.id)).then(setReservations);

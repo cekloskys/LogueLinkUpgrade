@@ -29,13 +29,7 @@ const ProfileScreen = () => {
       Alert.alert('Validation Error', 'Please enter valid CHC email.');
       return;
     }
-    /* if(eAddress){
-       const chc = eAddress.split('@');
-       if(chc[1]!=='chc.edu'){
-         Alert.alert('Validation Error', 'Please enter valid CHC email.');
-       return;
-       }
-     } */
+   
 
     if (dbUser) {
       await updateUser();
@@ -62,7 +56,6 @@ const ProfileScreen = () => {
         email: eAddress,
         sub
       }));
-      console.log(user);
       setDBUser(user);
     } catch (e) {
       Alert.alert("Error", e.message);

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import styles from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import OrientationView from 'rn-orientation-view';
 import landscapeStyles from './landscapeStyles';
-import {Dimensions} from 'react-native';
-import {useState} from 'react';
+import { Dimensions } from 'react-native';
+import { useState } from 'react';
 
 const HomeScreen = props => {
   const navigation = useNavigation();
@@ -46,7 +46,7 @@ const HomeScreen = props => {
     <OrientationView
       style={styles.container}
       landscapeStyles={landscapeStyles.container}>
-      <SafeAreaView style={{flex: 0.0}} />
+      <SafeAreaView style={{ flex: 0.0 }} />
       <View style={styles.header}>
         {isLandscape() === false ? (
           <Text style={styles.title}>
@@ -67,23 +67,19 @@ const HomeScreen = props => {
       {/* Button */}
       {isLandscape() === false ? (
         <View style={styles.box}>
-          <Pressable onPress={() => navigation.navigate('Sign In')}>
-            <Image
-              source={require('../../../assets/images/griffin_background_tiny.jpg')}
-            />
-          </Pressable>
+          <Image
+            source={require('../../../assets/images/griffin_background_tiny.jpg')}
+          />
         </View>
       ) : (
         <View style={landscapeStyles.box}>
-          <Pressable onPress={() => navigation.navigate('Sign In')}>
-            <Image
-              style={{
-                width: Dimensions.get('screen').width * 0.1,
-                height: Dimensions.get('screen').width * 0.1,
-              }}
-              source={require('../../../assets/images/griffin_background_tiny.jpg')}
-            />
-          </Pressable>
+          <Image
+            style={{
+              width: Dimensions.get('screen').width * 0.1,
+              height: Dimensions.get('screen').width * 0.1,
+            }}
+            source={require('../../../assets/images/griffin_background_tiny.jpg')}
+          />
         </View>
       )}
       <View style={styles.bottomContainer}>
