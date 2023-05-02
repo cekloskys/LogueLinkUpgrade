@@ -24,7 +24,7 @@ const { width, height } = Dimensions.get("window")
 const Stack = createStackNavigator();
 
 const RootNavigator = () => {
-
+    
     const { dbUser } = useAuthContext();
 
     return (
@@ -58,7 +58,7 @@ const HomeTabs = () => {
             width,
             height,
         }}>
-            <Tab.Navigator barStyle={{ backgroundColor: '#F5EDDC' }}>
+            <Tab.Navigator barStyle={{ backgroundColor: '#F5EDDC' , height: height * 0.1}}>
                 <Tab.Screen
                     name="Links"
                     component={HomeStackNavigator}
