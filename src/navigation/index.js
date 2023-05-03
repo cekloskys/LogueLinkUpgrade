@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HowToDetailScreen from '../screens/HowToDetail';
 import HomeScreen from '../screens/Home';
-import SignInScreen from '../screens/SignIn';
 import AdminScreen from '../screens/Admin';
 import DeleteLinksScreen from '../screens/DeleteLinks';
 import CreateLinkScreen from '../screens/CreateLink';
@@ -24,7 +23,7 @@ const { width, height } = Dimensions.get("window")
 const Stack = createStackNavigator();
 
 const RootNavigator = () => {
-    
+
     const { dbUser } = useAuthContext();
 
     return (
@@ -33,7 +32,6 @@ const RootNavigator = () => {
             headerShown: false,
         }}>
             <Stack.Screen name="HomeTabs" component={HomeTabs} />
-            <Stack.Screen name={'Sign In'} component={SignInScreen} />
             <Stack.Screen
                 name={'Admin'}
                 component={AdminScreen}
@@ -54,41 +52,37 @@ const Tab = createMaterialBottomTabNavigator();
 const HomeTabs = () => {
 
     return (
-        <View style={{
-            width,
-            height,
-        }}>
-            <Tab.Navigator barStyle={{ backgroundColor: '#F5EDDC' , height: height * 0.1}}>
-                <Tab.Screen
-                    name="Links"
-                    component={HomeStackNavigator}
-                    options={{
-                        tabBarIcon: ({ color }) => (<Entypo name="link" color={color} size={25} />),
-                    }}
-                />
-                <Tab.Screen
-                    name="Tutorials"
-                    component={OrdersStackNavigator}
-                    options={{
-                        tabBarIcon: ({ color }) => (<Entypo name="book" color={color} size={25} />),
-                    }}
-                />
-                <Tab.Screen
-                    name="Reservations"
-                    component={ReservationsStackNavigator}
-                    options={{
-                        tabBarIcon: ({ color }) => (<Entypo name="calendar" color={color} size={25} />),
-                    }}
-                />
-                <Tab.Screen
-                    name="Profile"
-                    component={ProfileStackNavigator}
-                    options={{
-                        tabBarIcon: ({ color }) => (<AntDesign name="user" color={color} size={25} />),
-                    }}
-                />
-            </Tab.Navigator>
-        </View>
+
+        <Tab.Navigator barStyle={{ backgroundColor: '#F5EDDC' }}>
+            <Tab.Screen
+                name="Links"
+                component={HomeStackNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (<Entypo name="link" color={color} size={25} />),
+                }}
+            />
+            <Tab.Screen
+                name="Tutorials"
+                component={OrdersStackNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (<Entypo name="book" color={color} size={25} />),
+                }}
+            />
+            <Tab.Screen
+                name="Reservations"
+                component={ReservationsStackNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (<Entypo name="calendar" color={color} size={25} />),
+                }}
+            />
+            <Tab.Screen
+                name="Profile"
+                component={ProfileStackNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (<AntDesign name="user" color={color} size={25} />),
+                }}
+            />
+        </Tab.Navigator>
     );
 };
 
