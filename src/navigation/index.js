@@ -3,9 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HowToDetailScreen from '../screens/HowToDetail';
 import HomeScreen from '../screens/Home';
-import AdminScreen from '../screens/Admin';
-import DeleteLinksScreen from '../screens/DeleteLinks';
-import CreateLinkScreen from '../screens/CreateLink';
 import { Feather, FontAwesome5, MaterialIcons } from 'react-native-vector-icons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -32,16 +29,6 @@ const RootNavigator = () => {
             headerShown: false,
         }}>
             <Stack.Screen name="HomeTabs" component={HomeTabs} />
-            <Stack.Screen
-                name={'Admin'}
-                component={AdminScreen}
-                options={{
-                    headerShown: false,
-                    gestureEnabled: false,
-                }}
-            />
-            <Stack.Screen name={'Delete URL'} component={DeleteLinksScreen} />
-            <Stack.Screen name={'Create URL'} component={CreateLinkScreen} />
         </Stack.Navigator>
 
     );
